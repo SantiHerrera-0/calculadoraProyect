@@ -1,5 +1,5 @@
-let numero1;
-let numero2;
+let numero1="";
+let numero2="";
 let operador;
 const contenedor = document.querySelector(".contenedor");
 const botones = document.querySelector(".botonera");
@@ -38,22 +38,45 @@ function operar(numero1,numero2,operador){
     }
 }
 
-const botonClear = document.createElement("button");
-botonClear.classList.add("botonClear");
-botonClear.style.display = "flex";
-botonClear.style.flex = "1 1 38px";
-botonClear.style.height = "auto";
-botonClear.style.border = "solid green";
-botonClear.style.background = "black";
-botonClear.style.alignItems="center";
-botonClear.style.justifyContent = "center";
-botonClear.style.color = "white";
-botonClear.textContent = "C";
-botonesB.appendChild(botonClear);
-
-
-const pantalla = document.querySelector(".pantalla");
-pantalla.textContent = "1234678";
+for(let i=0; i<5; i++){
+    const botonB = document.createElement("button");
+    botonB.style.display = "flex";
+    botonB.style.flex = "1 1 38px";
+    botonB.style.height = "auto";
+    botonB.style.border = "solid green";
+    botonB.style.background = "black";
+    botonB.style.alignItems="center";
+    botonB.style.justifyContent = "center";
+    botonB.style.color = "white";
+    botonB.style.fontSize = "22px"
+    switch (i){
+        case 0:
+            botonB.classList.add("botonClear");
+            botonB.textContent = "C";
+            botonesB.appendChild(botonB);
+            break;
+        case 1:
+            botonB.classList.add("botonSuma");
+            botonB.textContent = "+";
+            botonesB.appendChild(botonB);
+            break;
+        case 2:
+            botonB.classList.add("botonResta");
+            botonB.textContent = "-";
+            botonesB.appendChild(botonB);
+            break;
+        case 3:
+            botonB.classList.add("botonMult");
+            botonB.textContent = "*";
+            botonesB.appendChild(botonB);
+            break;
+        case 4:
+            botonB.classList.add("botonDiv");
+            botonB.textContent = "/";
+            botonesB.appendChild(botonB);
+            break;
+    }
+}
 
 for(let i=0; i<12 ; i++){
     const boton = document.createElement("button");
@@ -77,7 +100,14 @@ for(let i=0; i<12 ; i++){
     botones.appendChild(boton);
 }
 
-contenedor.addEventListener("click", (item)=>console.log(item.target.textContent));
+//contenedor.addEventListener("click", (item)=>console.log(+item.target.textContent));
+const pantalla = document.querySelector(".pantalla");
+
+contenedor.addEventListener("click", (item)=>{
+    item.preventDefault;
+    numero1 = numero1 + item.target.textContent;
+    pantalla.textContent = numero1;});
+
 
 
 
