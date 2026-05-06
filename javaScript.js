@@ -1,9 +1,10 @@
-let numero1="";
-let numero2="";
-let operador;
+let numero1=0;
+let numero2=0;
+let operador="";
 const contenedor = document.querySelector(".contenedor");
 const botones = document.querySelector(".botonera");
 const botonesB = document.querySelector(".botoneraB")
+const pantalla = document.querySelector(".pantalla");
 
 function suma(a,b){
     return a+b;
@@ -22,19 +23,27 @@ function div(a,b){
 }
 
 function operar(numero1,numero2,operador){
+    
     switch (operador){
         case "+":
-            suma(numero1,numero2);
+            return suma(numero1,numero2);
             break;
         case "-":
-            resta(numero1,numero2);
+            return resta(numero1,numero2);
             break;
         case "*":
-            mult(numero1,numero2);
+            return mult(numero1,numero2);
             break;
         case "/":
-            div(numero1,numero2);
-            break;
+            if(numero2 === 0){
+                alert("No se puede dividir por cero")
+                return 0;
+                break;
+            }else{
+                return div(numero1,numero2);
+                break;
+            }
+            
     }
 }
 
@@ -100,13 +109,35 @@ for(let i=0; i<12 ; i++){
     botones.appendChild(boton);
 }
 
-//contenedor.addEventListener("click", (item)=>console.log(+item.target.textContent));
-const pantalla = document.querySelector(".pantalla");
+function verificarBoton(botonPrecionado){    
+    if (Number.isInteger(+botonPrecionado)){
+        if(operador === ""){
+            numero1 = numero1 + botonPrecionado;
+            console.log(numero1);
+        }else if(operador !== ""){
+            numero2 = numero2 + botonPrecionado;
+            console.log(numero2);
+        }
+    }else if (botonPrecionado === "+" || botonPrecionado === "-" || botonPrecionado === "*" || botonPrecionado === "/" || botonPrecionado === "="){
+                operador = botonPrecionado;
+                console.log(operador);    
+        }
+    }
 
 contenedor.addEventListener("click", (item)=>{
-    item.preventDefault;
-    numero1 = numero1 + item.target.textContent;
-    pantalla.textContent = numero1;});
+    if(item.target !== pantalla){
+       let resultado = numero1;
+        verificarBoton(item.target.textContent);
+        if (operador === "="){
+            console.log(resultado);
+        }
+        if(numero2 !== 0){
+            resultado = operar(+numero1,+numero2,operador);
+            numero1 = resultado; 
+            numero2 = 0;
+            console.log(resultado);
+        }
+    }});
 
 
 
