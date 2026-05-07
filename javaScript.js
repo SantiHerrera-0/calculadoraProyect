@@ -1,6 +1,9 @@
 let numero1=0;
 let numero2=0;
 let operador="";
+let botonActual="";
+let resultado = 0;
+let operadores = ["+", "-", "*", "/", "="];
 const contenedor = document.querySelector(".contenedor");
 const botones = document.querySelector(".botonera");
 const botonesB = document.querySelector(".botoneraB")
@@ -19,6 +22,10 @@ function mult(a,b){
 }
 
 function div(a,b){
+    console.log(a,b)
+    if(b === 0){
+        return 0;
+    }
     return a/b;
 }
 
@@ -36,8 +43,9 @@ function operar(numero1,numero2,operador){
             break;
         case "/":
             if(numero2 === 0){
-                alert("No se puede dividir por cero")
-                return 0;
+                pantalla.textContent = "Error"
+                alert("No se puede dividir por cero >.<");
+                return numero1;
                 break;
             }else{
                 return div(numero1,numero2);
@@ -118,25 +126,24 @@ function verificarBoton(botonPrecionado){
             numero2 = numero2 + botonPrecionado;
             console.log(numero2);
         }
-    }else if (botonPrecionado === "+" || botonPrecionado === "-" || botonPrecionado === "*" || botonPrecionado === "/" || botonPrecionado === "="){
+    }else if (botonPrecionado === "+" || botonPrecionado === "-" || botonPrecionado === "*" || botonPrecionado === "/"){
                 operador = botonPrecionado;
-                console.log(operador);    
         }
     }
 
 contenedor.addEventListener("click", (item)=>{
     if(item.target !== pantalla){
-       let resultado = numero1;
-        verificarBoton(item.target.textContent);
-        if (operador === "="){
-            console.log(resultado);
+        if (item.target.textContent === "="){
+            resultado = numero1;
+            pantalla.textContent = resultado;
         }
-        if(numero2 !== 0){
+        if(operador !== "" && operadores.includes(item.target.textContent)){
             resultado = operar(+numero1,+numero2,operador);
             numero1 = resultado; 
             numero2 = 0;
             console.log(resultado);
         }
+        verificarBoton(item.target.textContent);
     }});
 
 
